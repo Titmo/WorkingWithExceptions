@@ -1,17 +1,33 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public class Main {
-    public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
-
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+    public static void personalData(String login,String password, String confirmPassword) {
+        if (login.length() > 20) {
+            throw new  WrongLoginException();
+        }
+        if (password.contains(" ")) {
+            throw new WrongPasswordException();
+        }
+        if (password.matches("^[a-zA-Z]*$")) {
+            throw new WrongPasswordException();
+        }
+        if (password.matches("[1 2 3 4 5 6 7 8 9]")) {
+            throw new WrongPasswordException();
+        }
+        if (!password.equals(confirmPassword)) {
+            throw new WrongPasswordException();
         }
     }
-}
+    public static void main(String[] args) {
+        try {
+            personalData("Pashtet_JAVA","rt3E_y","rt3E_y");
+        }catch (WrongLoginException e) {
+            System.out.println("Логин больше 20 символов");
+        }
+        catch (WrongPasswordException e) {
+            System.out.println("Пороль не совподает требованием");
+        }
+        finally {
+            System.out.println("Блок выполнен");
+        }
+    }
+
+    }
